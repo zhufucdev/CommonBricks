@@ -56,12 +56,12 @@ class WallAI(AI):
             # the bullet isn't moving
             self.schedule_action(Serve(wall, bullet))
         elif bullet.velocity.y > 0:
-            if bullet.velocity.y >= 200:
+            if bullet.velocity.y >= 300:
                 self.schedule_action(Pingpong(wall, bullet))
             else:
                 dest_predict = predict_enter_pos(bullet)
                 dest = dest_predict.copy()
-                dest.y += wall.game.preference.wall[0] / 2
+                dest.y += (wall.game.preference.border.stop - wall.game.preference.border.start) / 2
                 self.schedule_action(Move(Vector2(wall.x, wall.y), dest, 0.1))
                 self.schedule_action(WaitUntil(lambda: dest_predict.y <= bullet.position.y))
                 self.schedule_action(Serve(wall, bullet))
