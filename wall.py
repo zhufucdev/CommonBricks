@@ -1,5 +1,8 @@
+import time
+
+import pygame
 from pygame import Vector2
-import pygame, time
+from wall_ai import WallAI
 
 
 class Wall:
@@ -13,13 +16,24 @@ class Wall:
         self.velocity = Vector2()
         self.last_update_time = time.time()
 
-    def update(self):
-        m_pos = pygame.mouse.get_pos()
-        x = m_pos[0]
-        y = m_pos[1]
+        if game.preference.use_ai:
+            self.ai = WallAI(game)
 
+    def update(self):
         border_bottom = self.game.preference.display[1] - self.game.preference.border.start
         border_top = self.game.preference.display[1] - self.game.preference.border.stop
+
+        if self.game.preference.use_ai:
+            pos = self.ai.involve()
+            if pos is None:
+                x, y = self.x, self.y
+            else:
+                x, y = pos
+        else:
+            m_pos = pygame.mouse.get_pos()
+            x = m_pos[0]
+            y = m_pos[1]
+
         if y < border_top:
             y = border_top
         elif y > border_bottom:

@@ -18,3 +18,4 @@ class Preference:
         self.reflect_region_right = Rect(self.display[0] - 5, 0, 5, self.display[1])
         # Unit: pixel per second
         self.acceleration = -10
+        self.use_ai = True

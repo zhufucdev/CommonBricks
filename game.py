@@ -1,8 +1,9 @@
-import pygame, util
-from preference import Preference
+import pygame
+
 from brick import Brick
-from wall import Wall
 from bullet import Bullet
+from preference import Preference
+from wall import Wall
 
 
 class Game:
